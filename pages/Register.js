@@ -1,11 +1,12 @@
 import {React, useState, useEffect} from 'react'
 import { useRouter } from 'next/router'
-import { Container, Panel, PanelGroup, InputGroup, Input, Form, Schema, ButtonToolbar, FlexboxGrid, Animation, Button } from 'rsuite'
+import { Container, Panel, PanelGroup, InputGroup, Input, Form, Schema, ButtonToolbar, FlexboxGrid, Animation, Button, toaster } from 'rsuite'
 //import { Button, Pane, Text, TextInput, Card, Strong, toaster, Spinner, IconButton } from 'evergreen-ui'
 const { StringType, NumberType } = Schema.Types;
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'rsuite/dist/rsuite.min.css'
 import { userService } from '@services/index'
+import { showNotification } from './user/utilContext.js'
 
 export default function Register() {
   const [userData, setUserData] = useState({username:'', email:'', password:'', repassword:''})
@@ -17,16 +18,24 @@ export default function Register() {
     email: StringType()
                   .isEmail('Enter a valid Username or Email')
                   .isRequired('Username required'),
-    password: StringType().isRequired('Password required')
+    password: StringType().isRequired('Password required'),
+    repassword: StringType().addRule((value, data) => {
+                            if(value !== data.password){
+                              return false
+                            }
+                            return true
+                          }, 'The two passwords do not match')
+                          .isRequired('This field is required')
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-      return userService.login(userData.usernameOrEmail, userData.password)
+      return userService.register(userData.username, userData.email, userData.password)
              .then((r) => {
                console.log(r)
              })
              .catch(error => {
+               toaster.push(showNotification(`${error}`, 'error', 'User exists'), 'bottomEnd')
                console.log(error)
              })
   }

@@ -1,5 +1,5 @@
 import getConfig from 'next/config'
-import { sqlConfig, sqlConfigDB, pool } from '@config/db'
+import { sqlConfig, pool } from '@config/db'
 import {apiHandler} from '@helpers/api'
 const sql = require('mssql')
 const jwt = require('jsonwebtoken')
@@ -10,23 +10,32 @@ export default apiHandler(handler)
 
 function handler(req, res){
   switch (req.method) {
-    case 'GET':
-        return getCharDetails()
+    case 'POST':
+        return newUser()
     default:
         return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
-  async function getCharDetails(){
-    const userId = req.user.sub
-    const chracterDetails =  await sql.connect(sqlConfigDB).then(() => {
-      return sql.query`SELECT * FROM [GameDB].[dbo].[character] WHERE act_id = ${userId} AND [GameDB].[dbo].[character].delflag = 0`
+  async function newUser(){
+    const {username, password, email} = JSON.parse(req.body)
+    const request = new sql.Request(pool)
+    const ps = new sql.PreparedStatement()
+    //ps.input('name', sql.varchar(50), {username})
+    //ps.input('password', sql.varchar(50), {password})
+    //ps.input('email', sql.varchar(50), {email})
+
+    const chracterExist =  await sql.connect(sqlConfig).then(() => {
+      return sql.query`SELECT name FROM [AccountServer].[dbo].[account_login] WHERE name = ${username} OR [AccountServer].[dbo].[account_login].email = ${email}`
     })
+    //const result = request.query('INSERT INTO [AccountServer].[dbo].[account_login] VALUES ()')
     //console.log(chracterDetails)
-    if(chracterDetails.rowsAffected > 0){
-          return res.status(200).json(chracterDetails.recordsets)
+    if(!chracterExist.rowsAffected > 0){
+
+
+          return res.status(200).json(chracterExist.recordsets)
       //sql.close()
     }else {
-      throw 'No tiene personajes creados'
+      throw 'Username or Email already exists'
     }
   }
 
