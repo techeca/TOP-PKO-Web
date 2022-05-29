@@ -58,7 +58,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 Client, Server Files & DB tested (v1.38)
 
-[Client](https://pkodev.net/topic/6130-release-clean-top-138-client/)
+[Client](https://pkodev.net/topic/6130-release-clean-top-138-client/)\
 [Server Files + Database](https://pkodev.net/topic/206-pirate-king-online-138/)
 
 ### Credits

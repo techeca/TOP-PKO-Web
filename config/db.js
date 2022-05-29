@@ -5,7 +5,7 @@ const sqlConfig = {
   user: process.env.SQL_USER,
   password: 'Y87dc#$98',
   database: process.env.SQL_DATABASE,
-  server: process.env.SQL_HOST,
+  server: '192.168.0.8\\SQLEXPRESS',
 
   pool: {
     max:10,
