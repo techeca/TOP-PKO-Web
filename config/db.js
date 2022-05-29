@@ -22,7 +22,7 @@ const sqlConfigDB = {
   user: process.env.SQL_USER,
   password: 'Y87dc#$98',
   database: process.env.SQL_DATABASE_GDB,
-  server: '192.168.0.8\\SQLEXPRESS',
+  server: process.env.SQL_HOST,
   pool: {
     max:10,
     min: 0,
