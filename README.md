@@ -14,7 +14,7 @@ SQL_HOST=                #EXAMPLE: localhost\\SQLEXPRESS
 API_KEY=                 #Your API KEY
 ```
 
-Open `config/db.js` and edit `password` with your own password (SQL).
+Open `config/db.js` and edit `password` with your own password (SQL).\
 
 ```bash
 user: process.env.SQL_USER,
@@ -44,8 +44,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Pages
 
-`pages/api` Request to Database
-`page/user` User module
+`pages/api` Request to Database\
+`page/user` User module\
 `page/register` New USER
 
 ## Images
