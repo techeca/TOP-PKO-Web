@@ -10,7 +10,6 @@ Make a file named `.env.local`, paste this and configure with your data:
 SQL_USER=UserSQL         #SQL User
 SQL_DATABASE=            #AccountServer database name
 SQL_DATABASE_GDB=        #GameDB database name
-SQL_HOST=                #EXAMPLE: localhost\\SQLEXPRESS
 API_KEY=                 #Your API KEY
 ```
 
@@ -20,7 +19,6 @@ Open `config/db.js` and edit `password` with your own password (SQL).\
 user: process.env.SQL_USER,
 password: 'Y87dc#$98',  # <------ EDIT HERE
 database: process.env.SQL_DATABASE,
-server: process.env.SQL_HOST,
 ```
 
 Open `next.config.js` and edit `secret` with your `API_KEY`.
