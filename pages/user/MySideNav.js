@@ -25,7 +25,6 @@ export default function MySideNav({userData, charsData}){
   const {theme, setTheme} = useContext(ThemeContext);
   const [expanded, setExpanded] = useState(true);
 
-
   //if(themeUser === 'dark'){
   //  color = '#1a1d24'
   //}else {
@@ -80,22 +79,27 @@ export default function MySideNav({userData, charsData}){
     console.log(temp)
   }
 
+  function getColorLink(page, pageSelected){
+    const ps = page == pageSelected
+    return ps
+  }
+
 //console.log(cData)
 
 const CustomNav = ({ active, onSelect, onOpen,...props }) => {
   return (
-    <Nav {...props} activeKey={active} onSelect={onSelect} style={{}} >
-      <Nav.Item eventKey="dashboard" icon={<DashboardIcon />}>Dashboard</Nav.Item >
-      <Nav.Item eventKey="profile" icon={<UserInfoIcon />}>Profile</Nav.Item>
-      <Nav.Menu eventKey="3" onOpen={onOpen} icon={<PeoplesIcon />} title="Characters">
+    <Nav  {...props} activeKey={active} onSelect={onSelect} style={{}} >
+      <Nav.Item eventKey="dashboard" style={{color:`${active == 'dashboard' ? 'darkorange' : ''}`}} icon={<DashboardIcon />}>Dashboard</Nav.Item >
+      <Nav.Item eventKey="profile" style={{color:`${active == 'profile' ? 'darkorange' : ''}`}} icon={<UserInfoIcon />}>Profile</Nav.Item>
+      <Nav.Menu eventKey="characters" style={{color:`${active == 'characters' ? 'darkorange' : ''}`}} onOpen={() => setActive('')} icon={<PeoplesIcon />} title="Characters">
         {!cData ? <></> : (cData[0].map((x) =>
-          <Nav.Item key={x.cha_id} eventKey={x.cha_id}>{x.cha_name} {x.motto} <Badge style={{marginLeft:5}} color="red" content={<p><strong>Lv:{x.degree}</strong></p>} /></Nav.Item>
+          <Nav.Item key={x.cha_id} style={{color:`${active == x.cha_id ? 'darkorange' : ''}`}} eventKey={x.cha_id}>{x.cha_name} {x.motto} <Badge style={{marginLeft:5}} color="red" content={<p><strong>Lv:{x.degree}</strong></p>} /></Nav.Item>
         ))}
       </Nav.Menu>
       <Nav.Menu eventKey="products" icon={<SettingIcon />} title="Settings">
-        <Nav.Item eventKey="4-1" onClick={handleChangeThemeBox}>Change Theme</Nav.Item>
+        <Nav.Item eventKey="" onClick={handleChangeThemeBox}>Change Theme</Nav.Item>
       </Nav.Menu>
-      <Nav.Item eventKey="about" icon={<InfoOutlineIcon />}>About</Nav.Item>
+      <Nav.Item eventKey="about" style={{color:`${active == 'about'? 'darkorange' : ''}`}} icon={<InfoOutlineIcon />}>About</Nav.Item>
     </Nav>
   );
 };

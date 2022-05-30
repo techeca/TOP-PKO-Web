@@ -1,5 +1,7 @@
-import '../styles/globals.css'
 import 'rsuite/dist/rsuite.min.css'
+import '../styles/globals.css'
+
+
 import { useState, useEffect, useCallback, useContext, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { userService } from '../services'

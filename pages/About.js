@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { userService } from '@services/index'
-import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup } from 'rsuite'
+import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup, Animation } from 'rsuite'
 import Image from 'next/image'
 import AboutImg from '../styles/aboutimg.png'
 import TechecaLogo from '../styles/techeca.png'
@@ -22,29 +22,36 @@ export default function Profile(){
   }
 
   return(
-    <Panel style={{textAlign:'center'}}>
+    <Container style={{margin:50}}>
+    <Animation.Bounce in={true}>
+    <FlexboxGrid justify={'space-around'}>
+      <FlexboxGrid.Item colspan={18}>
 
-    <h2>About</h2>
-    <div style={{color:'red'}}>
-    </div>
+      <h2 style={{textAlign:'center'}}>About</h2>
+      <div>
+      </div>
+      <Panel style={{textAlign:'center'}}>
 
-    <FlexboxGrid justify="space-around" style={{margin:40}}>
-      <FlexboxGrid.Item as={Col} colspan={24} xl={8} lg={8} md={14} sm={18}>
-
-          <Panel bordered eventKey={1}>
-            <Image responsive src={AboutImg} />
-            <Panel >
+            <Panel bordered eventKey={1}>
+              <Image responsive src={AboutImg} />
+              <Panel >
+                <Image responsive src={TechecaLogo} />
+              </Panel>
               <p>
-                <small>
-                  Project created by me.
+                <small style={{display:'flex', flexDirection:'column'}}>
+                  Links to resources used in this project:
+                  <ul>
+                    <li><a href="https://github.com/techeca/TOP-PKO-Web">Github</a></li>
+                  </ul>
                 </small>
               </p>
-              <Image responsive src={TechecaLogo} />
             </Panel>
-          </Panel>
 
-      </FlexboxGrid.Item>
+      </Panel>
+
+        </FlexboxGrid.Item>
     </FlexboxGrid>
-    </Panel>
+    </Animation.Bounce>
+    </Container>
   )
 }

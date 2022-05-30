@@ -18,7 +18,7 @@ export default function MyFooter() {
     <FlexboxGrid justify="space-around">
       <FlexboxGrid.Item as={Col} colspan={4} lg={2} md={4} smHidden xsHidden >
         <h4>LOGO</h4>
-        <p>© TOP/PKO Web</p>
+        <p>© techeca</p>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item style={{display:'flex', flexDirection:'row', justifyContent:'center'}} as={Col} colspan={4} lg={4} md={4} sm={6} xs={10}>
           <ButtonToolbar>
@@ -35,13 +35,13 @@ export default function MyFooter() {
             </ButtonToolbar>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item style={{display:'flex', flexDirection:'column'}} as={Col} colspan={4} lg={2} md={4} sm={4} xs={1}>
-        <Link href="/"><a>Home</a></Link>
-        <Link href="/"><a>News</a></Link>
-        <Link href="/"><a>Forum</a></Link>
+        <Link href="/"><a style={{color:'darkorange'}}><strong>Home</strong></a></Link>
+        <Link href="/"><a style={{color:'darkorange'}}><strong>News</strong></a></Link>
+        <Link href="/"><a style={{color:'darkorange'}}><strong>Forum</strong></a></Link>
       </FlexboxGrid.Item>
       <FlexboxGrid.Item style={{display:'flex', flexDirection:'column'}} as={Col} colspan={4} lg={2} md={4} sm={4} xs={1}>
-        <Link href="/Register"><a>Register</a></Link>
-        <Link href="/user/Login"><a>Login</a></Link> 
+        <Link href="/Register"><a style={{color:'darkorange'}}><strong>Register</strong></a></Link>
+        <Link href="/user/Login"><a style={{color:'darkorange'}}><strong>Login</strong></a></Link>
       </FlexboxGrid.Item>
     </FlexboxGrid>
 

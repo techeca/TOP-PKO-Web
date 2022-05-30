@@ -1,4 +1,4 @@
-import { React } from 'react'
+import { React, useState } from 'react'
 import { FlexboxGrid, Col, Content, Panel, Badge, Divider  } from 'rsuite'
 import Image from 'next/image'
 import LogoTest from '../../styles/swordmanlogosimple.png'
@@ -9,7 +9,7 @@ import Lance from '../../styles/lance_newbie.png'
 //import Amy from '../styles/amy'
 
 export default function Character({cData}){
-  const chatDet = cData[0]
+  const [chatDet, setChatDet] = useState(cData[0])
   //console.log(cData)
 
   function LineData(nomdato, dato){
@@ -36,6 +36,8 @@ export default function Character({cData}){
   }
 
   return(
+    <>
+    {!chatDet ? <>Loading...</> : <>
     <Content>
     <Panel id='backImgCharacter'>
       <h2 style={{color:'white', paddingLeft:20, textShadow:'0px 0px 6px black'}}>Character details - <span style={{color:'yellow'}}>{chatDet.cha_name}</span> <span style={{color:'red'}}>Lv{chatDet.degree}</span></h2>
@@ -100,5 +102,8 @@ export default function Character({cData}){
       </FlexboxGrid.Item>
     </FlexboxGrid>
     </Content>
+    </>
+  }
+  </>
   )
 }
