@@ -17,22 +17,44 @@ function handler(req, res){
   }
 
   async function newUser(){
-    const {username, password, email} = JSON.parse(req.body)
-    const request = new sql.Request(pool)
-    const ps = new sql.PreparedStatement()
+    const {name, email, password} = JSON.parse(req.body)
+    const hashPass = md5Hash.default(password).toUpperCase()
+    const transaction = new sql.Transaction(pool)
+    const request = new sql.Request(transaction)
+    //const ps = new sql.PreparedStatement()
     //ps.input('name', sql.varchar(50), {username})
     //ps.input('password', sql.varchar(50), {password})
     //ps.input('email', sql.varchar(50), {email})
 
     const chracterExist =  await sql.connect(sqlConfig).then(() => {
-      return sql.query`SELECT name FROM [AccountServer].[dbo].[account_login] WHERE name = ${username} OR [AccountServer].[dbo].[account_login].email = ${email}`
+      return sql.query`SELECT name FROM [AccountServer].[dbo].[account_login] WHERE name = ${name} OR [AccountServer].[dbo].[account_login].email = ${email}`
     })
-    //const result = request.query('INSERT INTO [AccountServer].[dbo].[account_login] VALUES ()')
-    //console.log(chracterDetails)
-    if(!chracterExist.rowsAffected > 0){
+    //const insertAcc =  await sql.connect(sqlConfig).then(() => {
+    //  return sql.query`INSERT INTO [AccountServer].[dbo].[account] VALUES (${username}, ${password}, ${email})`
+    //})
+    //const insertGDB =  await sql.connect(sqlConfig).then(() => {
+    //  return sql.query`INSERT INTO [GameDB].[dbo].[account_login] VALUES (${username}, ${password}, ${email})`
+    //})
+    //INSERT INTO account (act_id, act_name) VALUES ((SELECT MAX(act_id) + 1 FROM account), @Act_name)
 
+    console.log(!chracterExist.rowsAffected[0] > 0)
 
-          return res.status(200).json(chracterExist.recordsets)
+    if(!chracterExist.rowsAffected[0] > 0){
+      const insertAcc =  await sql.connect(sqlConfig).then(() => {
+        return sql.query`INSERT INTO [AccountServer].[dbo].[account_login] (name, password, email) VALUES (${name}, ${hashPass}, ${email})`
+      })
+      if(insertAcc.rowsAffected[0] > 0){
+        const insertGDB =  await sql.connect(sqlConfig).then(() => {
+          return sql.query`INSERT INTO [GameDB].[dbo].[account] (act_id, act_name) VALUES ((SELECT MAX(act_id) + 1 FROM [GameDB].[dbo].[account]), ${name})`
+        })
+        if(insertGDB.rowsAffected[0] > 0){
+          return res.status(200).json('Registered Successfully')
+        }else {
+          throw 'Errooooorrrr!!!~~~¬## GameDB INSERT'
+        }
+      }else {
+        throw 'Errooooorrrr!!!~~~¬## AccountServer INSERT'
+      }
       //sql.close()
     }else {
       throw 'Username or Email already exists'

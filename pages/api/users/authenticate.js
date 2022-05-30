@@ -31,10 +31,11 @@ function handler(req, res){
     if(result.rowsAffected > 0){
       //console.log('hay resultados')
       await sql.connect(sqlConfigDB).then(() => {
-        return sql.query`SELECT * FROM [GameDB].[dbo].[account] INNER JOIN [GameDB].[dbo].[character] ON [GameDB].[dbo].[character].act_id = [GameDB].[dbo].[account].act_id WHERE [GameDB].[dbo].[account].act_name = ${result.recordsets[0][0].name} AND [GameDB].[dbo].[character].delflag = 0`
+        return sql.query`SELECT * FROM [GameDB].[dbo].[account] INNER JOIN [GameDB].[dbo].[character] ON [GameDB].[dbo].[character].act_id = [GameDB].[dbo].[account].act_id WHERE [GameDB].[dbo].[account].act_name = ${result.recordsets[0][0].name} AND [GameDB].[dbo].[character].delflag = 0 `
       }).then(resultDB => {
+        console.log(resultDB)
         if(resultDB.rowsAffected > 0){
-          //console.log(resultDB.recordsets[0][0].act_id[0])
+
           //resultDB[0][0].cha_ids.map((char) => charsUser.push(char))
           const token = jwt.sign({sub: resultDB.recordsets[0][0].act_id[0]}, serverRuntimeConfig.secret, {expiresIn:'7d'})
           return res.status(200).json({
@@ -47,9 +48,22 @@ function handler(req, res){
             email: result.recordsets[0][0].email,
             token
           })
+        }else {
+          console.log(result.recordsets[0][0].id)
+          const token = jwt.sign({sub: result.recordsets[0][0].id}, serverRuntimeConfig.secret, {expiresIn:'7d'})
+          return res.status(200).json({
+            name: result.recordsets[0][0].name,
+            userIdGame: result.recordsets[0][0].id,
+            charractersUser: '0',
+            //gmLevel: resultDB.recordsets[0][0].gm,
+            lastLoginTime: result.recordsets[0][0].last_login_time,
+            lastLoginIp: result.recordsets[0][0].last_login_ip,
+            email: result.recordsets[0][0].email,
+            token
+          })
         }
       }).catch((err) => {
-        //console.log(err)
+        console.log(err)
       })
       //sql.close()
     }else {

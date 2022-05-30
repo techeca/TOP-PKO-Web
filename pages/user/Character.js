@@ -1,5 +1,5 @@
 import { React, useState } from 'react'
-import { FlexboxGrid, Col, Content, Panel, Badge, Divider  } from 'rsuite'
+import { FlexboxGrid, Col, Content, Panel, Badge, Divider, Animation, Container  } from 'rsuite'
 import Image from 'next/image'
 import LogoTest from '../../styles/swordmanlogosimple.png'
 import Lance from '../../styles/lance_newbie.png'
@@ -39,6 +39,9 @@ export default function Character({cData}){
     <>
     {!chatDet ? <>Loading...</> : <>
     <Content>
+    <Animation.Bounce in={true}>
+      <FlexboxGrid justify={'space-around'}>
+      <FlexboxGrid.Item colspan={24}>
     <Panel id='backImgCharacter'>
       <h2 style={{color:'white', paddingLeft:20, textShadow:'0px 0px 6px black'}}>Character details - <span style={{color:'yellow'}}>{chatDet.cha_name}</span> <span style={{color:'red'}}>Lv{chatDet.degree}</span></h2>
     </Panel>
@@ -47,17 +50,17 @@ export default function Character({cData}){
       <FlexboxGrid.Item as={Col} colspan={24} lg={8} md={8}>
       <Panel bordered>
         <Panel style={{display:'flex', justifyContent:'center', margin:-15}}>
-          <Image style={{borderRadius: 3}} src={Lance} responsive />
+          <Image style={{borderRadius: 3}} src={Lance} />
         </Panel>
         <Divider />
         <Panel style={{margin:-10}}>
-        <h4 style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', color:'orange'}}>{chatDet.cha_name}<h6 style={{color:'white'}}>Lv<span style={{color:'red', margin:5, paddingTop:5}}>{chatDet.degree}</span></h6></h4>
+        <h4 style={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'space-between', color:'orange'}}>{chatDet.cha_name}<span style={{color:'white'}}>Lv<span style={{color:'red', margin:5, paddingTop:5}}>{chatDet.degree}</span></span></h4>
 
         {LineData('Class', chatDet.job)}
-        <>
 
-        <span><Image src={LogoTest} width='50%' height='50%' responsive /></span>
-        </>
+
+        <span><Image src={LogoTest} width='50%' height='50%' /></span>
+
 
         </Panel>
       </Panel>
@@ -101,6 +104,10 @@ export default function Character({cData}){
         </Panel>
       </FlexboxGrid.Item>
     </FlexboxGrid>
+
+    </FlexboxGrid.Item>
+    </FlexboxGrid>
+    </Animation.Bounce>
     </Content>
     </>
   }

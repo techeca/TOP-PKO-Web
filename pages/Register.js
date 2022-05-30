@@ -35,7 +35,7 @@ export default function Register() {
                console.log(r)
              })
              .catch(error => {
-               toaster.push(showNotification(`${error}`, 'error', 'User exists'), 'bottomEnd')
+               //toaster.push(showNotification(`${error}`, 'error', 'User exists'), 'bottomEnd')
                console.log(error)
              })
   }

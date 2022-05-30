@@ -32,8 +32,9 @@ export default function MySideNav({userData, charsData}){
 //  }
 
   function handleContentCPanel (p){
+    console.log(cData[0])
     let dataChar = []
-    if(!isNaN(p)){
+    if(!isNaN(p) && cData){
       dataChar = cData[0].filter((x) => {
         return x.cha_id == p
       })

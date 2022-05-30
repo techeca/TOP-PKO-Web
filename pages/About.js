@@ -22,34 +22,33 @@ export default function Profile(){
   }
 
   return(
-    <Container style={{margin:50}}>
+    <Container style={{margin:30, maxHeight:'100vh'}}>
     <Animation.Bounce in={true}>
-    <FlexboxGrid justify={'space-around'}>
-      <FlexboxGrid.Item colspan={18}>
+    <FlexboxGrid justify={'center'}>
+      <FlexboxGrid.Item as={Col} colspan={24} lg={10} md={14} sm={22}>
 
       <h2 style={{textAlign:'center'}}>About</h2>
       <div>
       </div>
-      <Panel style={{textAlign:'center'}}>
 
-            <Panel bordered eventKey={1}>
-              <Image responsive src={AboutImg} />
-              <Panel >
-                <Image responsive src={TechecaLogo} />
+
+            <Panel bordered style={{display:'flex', justifyContent:'center'}}>
+              <Image layout="responsive" src={AboutImg} />
+              <Panel style={{display:'flex', justifyContent:'center'}}>
+                <Image src={TechecaLogo} />
               </Panel>
-              <p>
+              <p style={{display:'flex', justifyContent:'center'}}>
                 <small style={{display:'flex', flexDirection:'column'}}>
                   Links to resources used in this project:
-                  <ul>
-                    <li><a href="https://github.com/techeca/TOP-PKO-Web">Github</a></li>
-                  </ul>
                 </small>
               </p>
+              <ul>
+                <li><a href="https://github.com/techeca/TOP-PKO-Web">Github</a></li>
+              </ul>
             </Panel>
 
-      </Panel>
-
         </FlexboxGrid.Item>
+
     </FlexboxGrid>
     </Animation.Bounce>
     </Container>

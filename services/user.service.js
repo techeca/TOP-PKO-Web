@@ -35,7 +35,7 @@ function logout(){
   userSubject.next(null);
 }
 
-function register(name, lastName, rut, email, phone, password){
+function register(name, email, password){
   return fetchWrapper.postSn(`${baseUrl}/register`, {name, email, password})
     .then(user => {
       userSubject.next(user);

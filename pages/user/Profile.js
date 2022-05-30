@@ -4,7 +4,7 @@ import { userService } from '@services/index'
 import MySideNav from './MySideNav.js'
 import ChangePassword from './ChangePassword.js'
 import ChangeEmail from './ChangeEmail.js'
-import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup } from 'rsuite'
+import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup, Animation } from 'rsuite'
 
 
 export default function Profile({uData}){
@@ -25,35 +25,41 @@ export default function Profile({uData}){
   return(
     <>
     {userData ?
-      <>
-      <Panel id='backImgProfile'>
-        <h2 style={{color:'white', paddingLeft:20, textShadow:'0px 0px 4px black'}}>Profile</h2>
-        <div style={{color:'orange', paddingLeft:20, textShadow:'0px 0px 2px black'}}>
-        <h3>{userData.name}</h3>
-        </div>
-      </Panel>
-    <Panel>
+      <Animation.Bounce in={true}>
+        <FlexboxGrid>
+        <FlexboxGrid.Item colspan={24}>
+          <Panel id='backImgProfile'>
+              <h2 style={{color:'white', paddingLeft:20, textShadow:'0px 0px 4px black'}}>Profile</h2>
+              <div style={{color:'orange', paddingLeft:20, textShadow:'0px 0px 2px black'}}>
+              <h3>{userData.name}</h3>
+              </div>
+          </Panel>
+          <Panel>
+            <FlexboxGrid justify="space-around" style={{margin:20}}>
+              <FlexboxGrid.Item as={Col} colspan={24} md={16} lg={14}>
+                <PanelGroup accordion defaultActiveKey={1} bordered>
+                  <Panel header={<h4>Account Details</h4>} eventKey={1} id="panel1">
+                    <div style={{display:'flex', flexDirection:'column', alignItems:'', marginTop:-10}}>
+                      {lineData('Name', userData.name)}
+                      {/*lineData('Level Account', userData.gmLevel)*/}
+                      {lineData('Last Login IP', userData.lastLoginIp)}
+                      {lineData('Last Login Time', userData.lastLoginTime)}
+                    </div>
+                  </Panel>
+                  <ChangePassword eventKey={2} id="panel2" />
+                  <ChangeEmail disabled eventKey={3} id="panel3"/>
+                  <Panel header={<h4>idk</h4>} eventKey={4} id="panel4">
+                  idk
+                  </Panel>
+                </PanelGroup>
+              </FlexboxGrid.Item>
+            </FlexboxGrid>
+          </Panel>
+        </FlexboxGrid.Item>
+        </FlexboxGrid>
+      </Animation.Bounce>
 
-    <FlexboxGrid justify="space-around" style={{margin:40}}>
-      <FlexboxGrid.Item as={Col} colspan={24} md={16} lg={14}>
-        <PanelGroup accordion defaultActiveKey={1} bordered>
-          <Panel header={<h4>Account Details</h4>} eventKey={1} id="panel1">
-            <div style={{display:'flex', flexDirection:'column', alignItems:'', marginTop:-10}}>
-              {lineData('Name', userData.name)}
-              {lineData('Level Account', userData.gmLevel)}
-              {lineData('Last Login IP', userData.lastLoginIp)}
-              {lineData('Last Login Time', userData.lastLoginTime)}
-            </div>
-          </Panel>
-          <ChangePassword eventKey={2} id="panel2" />
-          <ChangeEmail disabled eventKey={3} id="panel3"/>
-          <Panel header={<h4>idk</h4>} eventKey={4} id="panel4">
-          idk
-          </Panel>
-        </PanelGroup>
-      </FlexboxGrid.Item>
-    </FlexboxGrid>
-    </Panel></> : <>Loading...</>}
+    : <>Loading...</>}
     </>
   )
 }
