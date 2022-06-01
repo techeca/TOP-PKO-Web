@@ -7,7 +7,7 @@ Website for ToP/PkO Private Server, tested locally with files 1.38.
 Make a file named `.env.local`, paste this and configure with your data:
 
 ```bash
-SQL_USER=UserSQL         #SQL User
+SQL_USER=                #SQL User
 SQL_DATABASE=            #AccountServer database name
 SQL_DATABASE_GDB=        #GameDB database name
 API_KEY=                 #Your API KEY
