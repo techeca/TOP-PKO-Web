@@ -7,7 +7,7 @@ Website for ToP/PkO Private Server, tested locally with files 1.38.
 Make a file named `.env.local`, paste this and configure with your data:
 
 ```bash
-SQL_USER=UserSQL         #SQL User
+SQL_USER=                #SQL User
 SQL_DATABASE=            #AccountServer database name
 SQL_DATABASE_GDB=        #GameDB database name
 API_KEY=                 #Your API KEY
@@ -48,7 +48,11 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Images
 
-![1](https://user-images.githubusercontent.com/53408118/170852799-d6375fe8-bcf3-4765-ab27-57497c0d6f4e.png)
+![web1](https://user-images.githubusercontent.com/53408118/171515498-2c064d08-1ecd-4702-8325-bff7cb5b9a92.PNG)
+![web2](https://user-images.githubusercontent.com/53408118/171515524-031cfe2c-ec25-4f0c-a63b-1aad85188a2f.PNG)
+![web3](https://user-images.githubusercontent.com/53408118/171515573-9400e0ba-7735-48b5-851d-cd2600cec52a.PNG)
+![web5](https://user-images.githubusercontent.com/53408118/171515584-591ffd90-9ad4-4366-9986-bbb452e0e4d7.PNG)
+
 
 ### Links
 
