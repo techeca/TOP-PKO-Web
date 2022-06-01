@@ -36,10 +36,10 @@ export default function Accounts(){
               <div style={{display:'flex', width:'60%', margin:10}}>
               <h6 style={{width:'30%', marginTop:5}}>Search user</h6>
                 <Input placeholder="account name" />
-                <Button style={{width:'20%', marginLeft:30, borderRadius:0}} >Find</Button>
+                <Button style={{width:'20%', marginLeft:30}} >Find</Button>
               </div>
 
-              <Panel bordered style={{margin:30}}>
+              <Panel bordered style={{margin:30, borderRadius:0}}>
 
               </Panel>
 
