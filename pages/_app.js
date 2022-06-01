@@ -1,42 +1,40 @@
 import 'rsuite/dist/rsuite.min.css'
 import '../styles/globals.css'
-
-
 import { useState, useEffect, useCallback, useContext, createContext } from 'react'
 import { useRouter } from 'next/router'
 import { userService } from '../services'
 import MyNav from './MyNav.js'
 import MyFooter from './MyFooter.js'
 import { Footer, Container, Content, Panel, Header, CustomProvider, Notification } from 'rsuite'
-import { ThemeContext } from './user/utilContext.js'
+import { ThemeContext } from './utilContext.js'
+import { UserContext } from './utilContext.js'
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter()
   const [authorized, setAuthorized] = useState(false)
-  const [themeUser, setThemeUser] = useState('')
-  //const ThemeContext = createContext(null)
+  const [userDataMaster, setUserDataMaster] = useState({userData:'', charsData:''})
   const [theme, setTheme] = useState('dark');
 
   const authCheck = useCallback((url) => {
   //Paths permitidos para usuario no logeados //pages
    const publicPaths = ['/', '/user/Login', '/Register']
    const path = url.split('?')[0]
-   if(!userService.userValue && !publicPaths.includes(path)){   //si no está logeado y no está en ruta publica
-           setAuthorized(false)
-           router.push({
-             pathname: '/',
-             query: { returnUrl: router.asPath}
-           })
-   } else {
-     setAuthorized(true)
-   }
-}, [router])
 
+   if(!userService.userValue && !publicPaths.includes(path)){   //si no está logeado y no está en ruta publica
+        setAuthorized(false)
+        router.push({
+        pathname: '/',
+        query: { returnUrl: router.asPath}
+      })
+    } else {
+         setAuthorized(true)
+      }
+    }, [router])
 
 useEffect(() => {
-  //setThemeUser(localStorage.getItem('themeUser'))
-  //console.log(localTheme)
-  //localTheme = localStorage.getItem('themeUser')
+  if(userService.userValue){
+    userService.getDetails().then((x) => setUserDataMaster({userData:userService.userValue , charsData:x}))
+  }
   if(localStorage.getItem('themeUser')){
     setTheme(localStorage.getItem('themeUser'))
   }else{
@@ -56,6 +54,7 @@ useEffect(() => {
 
   return(
   <ThemeContext.Provider value={{theme, setTheme}}>
+  <UserContext.Provider value={{userDataMaster, userDataMaster}}>
   {authorized &&
     <CustomProvider theme={theme}>
     <Container style={{height:'100vh'}}>
@@ -71,6 +70,7 @@ useEffect(() => {
     </Container>
     </CustomProvider>
   }
+  </UserContext.Provider>
   </ThemeContext.Provider>
   )
 }

@@ -16,6 +16,7 @@ function handler(req, res){
         return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
+  //registro nuevo usuario
   async function newUser(){
     const {name, email, password} = JSON.parse(req.body)
     const hashPass = md5Hash.default(password).toUpperCase()
@@ -29,13 +30,6 @@ function handler(req, res){
     const chracterExist =  await sql.connect(sqlConfig).then(() => {
       return sql.query`SELECT name FROM [AccountServer].[dbo].[account_login] WHERE name = ${name} OR [AccountServer].[dbo].[account_login].email = ${email}`
     })
-    //const insertAcc =  await sql.connect(sqlConfig).then(() => {
-    //  return sql.query`INSERT INTO [AccountServer].[dbo].[account] VALUES (${username}, ${password}, ${email})`
-    //})
-    //const insertGDB =  await sql.connect(sqlConfig).then(() => {
-    //  return sql.query`INSERT INTO [GameDB].[dbo].[account_login] VALUES (${username}, ${password}, ${email})`
-    //})
-    //INSERT INTO account (act_id, act_name) VALUES ((SELECT MAX(act_id) + 1 FROM account), @Act_name)
 
     console.log(!chracterExist.rowsAffected[0] > 0)
 

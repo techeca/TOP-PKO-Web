@@ -3,7 +3,7 @@ import { Navbar, Nav, FlexboxGrid, Col, CustomProvider, toaster, Notification } 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
-import { showNotification } from './user/utilContext.js'
+import { showNotification } from './utilContext.js'
 //import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import {userService} from '@services/index'
 
@@ -26,12 +26,14 @@ export default function MyNav(){
   };
 
   const NavUserLog = ({ active, onSelect, ...props }) => {
+    //console.log(userService.userValue.tokenAdmin)
     return (
       <Nav {...props} activeKey={active} onSelect={onSelect}>
         <div style={{}}>
-        <h6 style={{margin:15}}>Welcome <span style={{color:'orange'}}>{userService.userValue.name}</span></h6>
+        <h6 style={{margin:10}}>Welcome <span style={{color:'orange'}}>{userService.userValue.name}</span></h6>
         <Nav.Item eventKey="profile" onClick={() => router.push('/user/')}><FontAwesomeIcon  icon={faUser}/><span style={{marginLeft:10}}>Profile</span></Nav.Item>
         <Nav.Item eventKey="logout" onClick={() => handleLogout()} >Log Out</Nav.Item>
+        {userService.userValue.tokenAdmin ? <Nav.Item eventKey="logout" onClick={() => router.push('/admin/')} >CPanel</Nav.Item> : <></>}
         </div>
 
       </Nav>
@@ -57,9 +59,9 @@ export default function MyNav(){
     useEffect(() => {
       if(userService.userValue){
         setIsLogged(true)
-        console.log(userService.userValue)
+        //console.log(userService.userValue)
       }else {
-        console.log(isLogged)
+        //console.log(isLogged)
         setIsLogged(false)
       }
     }, [router, active, isLogged])

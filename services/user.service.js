@@ -37,9 +37,4 @@ function logout(){
 
 function register(name, email, password){
   return fetchWrapper.postSn(`${baseUrl}/register`, {name, email, password})
-    .then(user => {
-      userSubject.next(user);
-      localStorage.setItem('user', JSON.stringify(user));
-      return user;
-    });
 }

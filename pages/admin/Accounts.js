@@ -1,12 +1,12 @@
 import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { userService } from '@services/index'
-import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup, Animation } from 'rsuite'
+import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup, Animation, Button, Input } from 'rsuite'
 import Image from 'next/image'
-import AboutImg from '../styles/aboutimg.png'
-import TechecaLogo from '../styles/techeca.png'
+import AboutImg from '../../styles/aboutimg.png'
+import TechecaLogo from '../../styles/techeca.png'
 
-export default function Profile(){
+export default function Accounts(){
   const router = useRouter()
   const [pageSelected, setPageSelected] = useState('');
   //const [user, setUser] = useState({uData});
@@ -25,26 +25,24 @@ export default function Profile(){
     <Container style={{margin:30, maxHeight:'100vh'}}>
     <Animation.Bounce in={true}>
     <FlexboxGrid justify={'center'}>
-      <FlexboxGrid.Item as={Col} colspan={24} md={16}>
-
-      <h2 style={{textAlign:'center'}}>About</h2>
+      <FlexboxGrid.Item as={Col} colspan={24} md={20}>
+      {/*Accounts pane *admin*/}
+      <h2 style={{textAlign:'left'}}>Accounts</h2>
       <div>
       </div>
 
-
-            <Panel bordered style={{display:'flex', justifyContent:'center'}}>
+            <Panel bordered style={{justifyContent:'center'}}>
               {/*<Image layout="responsive" src={AboutImg} />*/}
-              <Panel style={{display:'flex', justifyContent:'center'}}>
-                <Image src={TechecaLogo} />
+              <div style={{display:'flex', width:'60%', margin:10}}>
+              <h6 style={{width:'30%', marginTop:5}}>Search user</h6>
+                <Input placeholder="account name" />
+                <Button style={{width:'20%', marginLeft:30, borderRadius:0}} >Find</Button>
+              </div>
+
+              <Panel bordered style={{margin:30}}>
+
               </Panel>
-              <p style={{display:'flex', justifyContent:'center'}}>
-                <small style={{display:'flex', flexDirection:'column'}}>
-                  Links to resources used in this project:
-                </small>
-              </p>
-              <ul>
-                <li><a href="https://github.com/techeca/TOP-PKO-Web">Github</a></li>
-              </ul>
+
             </Panel>
 
         </FlexboxGrid.Item>

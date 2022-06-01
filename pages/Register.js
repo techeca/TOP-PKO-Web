@@ -6,7 +6,7 @@ const { StringType, NumberType } = Schema.Types;
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'rsuite/dist/rsuite.min.css'
 import { userService } from '@services/index'
-import { showNotification } from './user/utilContext.js'
+import { showNotification } from './utilContext.js'
 
 export default function Register() {
   const [userData, setUserData] = useState({username:'', email:'', password:'', repassword:''})
@@ -32,7 +32,9 @@ export default function Register() {
     e.preventDefault()
       return userService.register(userData.username, userData.email, userData.password)
              .then((r) => {
-               console.log(r)
+               //console.log()
+               toaster.push(showNotification(`${r}`, 'success', 'Welcome'), 'bottomEnd')
+               router.push('/user/Login')
              })
              .catch(error => {
                //toaster.push(showNotification(`${error}`, 'error', 'User exists'), 'bottomEnd')

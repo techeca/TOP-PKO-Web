@@ -1,17 +1,20 @@
-import { React, useState, useContext } from 'react'
+import { React, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { userService } from '@services/index'
 import MySideNav from './MySideNav.js'
 import ChangePassword from './ChangePassword.js'
 import ChangeHonorForCredits from './ChangeHonorForCredits.js'
 import ChangeEmail from './ChangeEmail.js'
-import {FlexboxGrid, Col, Dropdown, Container, Content, Panel, PanelGroup, Animation, Divider } from 'rsuite'
-import { UserContext } from '../utilContext.js'
+import { Navbar, Nav, FlexboxGrid, Col, Sidenav, Dropdown, Container, Sidebar, Content, Panel, PanelGroup, Animation, Divider, Placeholder } from 'rsuite'
+import { Table, Column, HeaderCell, Cell } from 'rsuite-table';
 
-export default function Profile(){
+export default function Profile({uData}){
   const router = useRouter()
   const [pageSelected, setPageSelected] = useState('');
-  const {userDataMaster, setUserDataMaster} = useContext(UserContext);
+  const { Paragraph } = Placeholder;
+  //const [user, setUser] = useState({uData});
+  //const [userProfile, setUserProfile] = useState({name:'', gmLevel:'', password:'', lastLoginIp:'', lastLoginTime:''})
+  const userData = uData ? JSON.parse(uData) : {name:'', gmLevel:'', password:'', lastLoginIp:'', lastLoginTime:''}
 
   function lineData(nomdato, dato){
     return(
@@ -21,33 +24,38 @@ export default function Profile(){
     )
   }
 
+
+  //console.log(userData)
+
   return(
     <>
-    {userDataMaster.userData ?
+    {userData ?
       <Animation.Bounce in={true}>
       <FlexboxGrid>
         <FlexboxGrid.Item colspan={24} >
-        {/*Profile user*/}
+        {/*Login form*/}
               <Panel id='backImgProfile'>
                   <h2 style={{color:'white', paddingLeft:20, textShadow:'0px 0px 4px black'}}>Profile</h2>
                   <div style={{color:'orange', paddingLeft:20, textShadow:'0px 0px 2px black'}}>
-                  <h3>{userDataMaster.userData.name}</h3>
+                  <h3>{userData.name}</h3>
                   </div>
               </Panel>
 
               <FlexboxGrid style={{margin:25}}>
+
                 <FlexboxGrid.Item colspan={24}>
+
                   <FlexboxGrid.Item  as={Col} colspan={24} md={8}>
                   <Panel header={<h4>User Details</h4>} eventKey={1} id="panel1">
                     <div style={{display:'flex', flexDirection:'column', marginTop:-10}}>
-                      {lineData('Name', userDataMaster.userData.name)}
+                      {lineData('Name', userData.name)}
                       {/*lineData('Level Account', userData.gmLevel)*/}
-                      {lineData('Email', userDataMaster.userData.email)}
-                      {lineData('Crystals', userDataMaster.userData.crystals)}
-                      {lineData('Honor', userDataMaster.userData.honor)}
+                      {lineData('Email', userData.email)}
+                      {lineData('Crystals', userData.crystals)}
+                      {lineData('Honor', userData.honor)}
                       <Divider />
-                      {lineData('Last Login IP', userDataMaster.userData.lastLoginIp)}
-                      {lineData('Last Login Time', userDataMaster.userData.lastLoginTime)}
+                      {lineData('Last Login IP', userData.lastLoginIp)}
+                      {lineData('Last Login Time', userData.lastLoginTime)}
                     </div>
                   </Panel>
                   </FlexboxGrid.Item>
@@ -69,12 +77,15 @@ export default function Profile(){
                   </FlexboxGrid.Item>
 
                   <FlexboxGrid.Item style={{marginTop:10}} as={Col} colspan={24} md={8}>
-                    <Panel bordered>
-                      <Panel header={<h5>Last buys</h5>} eventKey={3} id="panel3">
+                  <Panel bordered>
 
-                      </Panel>
-                    </Panel>
+                  <Panel header={<h5>Last buys</h5>} eventKey={3} id="panel3">
+
+                  </Panel>
+
+                  </Panel>
                   </FlexboxGrid.Item>
+
                 </FlexboxGrid.Item>
 
               </FlexboxGrid>
@@ -82,6 +93,11 @@ export default function Profile(){
           </FlexboxGrid.Item>
       </FlexboxGrid>
       </Animation.Bounce>
+
+
+
+
+
 
 
     : <>Loading...</>}

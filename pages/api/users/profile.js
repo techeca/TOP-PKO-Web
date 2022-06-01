@@ -1,5 +1,5 @@
 import getConfig from 'next/config'
-import { sqlConfig, sqlConfigDB } from '@config/db'
+import { sqlConfig } from '@config/db'
 import {apiHandler} from '@helpers/api'
 const sql = require('mssql')
 const jwt = require('jsonwebtoken')
@@ -16,9 +16,10 @@ function handler(req, res){
         return res.status(405).end(`Method ${req.method} Not Allowed`)
   }
 
+  //obtiene detalles de personaje
   async function getCharDetails(){
     const userId = req.user.sub
-    const chracterDetails =  await sql.connect(sqlConfigDB).then(() => {
+    const chracterDetails =  await sql.connect(sqlConfig).then(() => {
       return sql.query`SELECT * FROM [GameDB].[dbo].[character] WHERE act_id = ${userId} AND [GameDB].[dbo].[character].delflag = 0`
     })
     //console.log(chracterDetails)

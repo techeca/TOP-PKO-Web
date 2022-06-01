@@ -6,7 +6,7 @@ const { StringType, NumberType } = Schema.Types;
 //import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import 'rsuite/dist/rsuite.min.css'
 import { userService } from '@services/index'
-import { showNotification } from './utilContext.js'
+import { showNotification } from '../utilContext.js'
 
 export default function Login() {
   const [userData, setUserData] = useState({usernameOrEmail:'', password:''})

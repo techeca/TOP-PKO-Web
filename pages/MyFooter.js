@@ -46,6 +46,7 @@ export default function MyFooter() {
         <FlexboxGrid.Item style={{display:'flex', flexDirection:'column'}} as={Col} colspan={4} lg={2} md={4} sm={4} xs={1}>
           <Link href="/Register"><a style={{color:'darkorange'}}><strong>Register</strong></a></Link>
           <Link href="/user/Login"><a style={{color:'darkorange'}}><strong>Login</strong></a></Link>
+          <Link href="/"><a style={{color:'darkorange'}}><strong>Play</strong></a></Link>
         </FlexboxGrid.Item>
       </FlexboxGrid>
 
