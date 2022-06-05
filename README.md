@@ -4,7 +4,7 @@ Website for ToP/PkO Private Server, tested locally with files 1.38.
 
 ## Local config & test
 
-Open `config/db.js` and edit `password` with your own password (SQL).\
+Open `config/db.js` and edit with your own info (SQL).\
 
 ```bash
 user: '',             #SQL User
