@@ -2,10 +2,10 @@
 const sql = require('mssql')
 
 const sqlConfig = {
-  user: process.env.SQL_USER,
+  user: 'sa',     //process.env.SQL_USER
   password: 'Y87dc#$98',
-  database: process.env.SQL_DATABASE,
-  server: 'localhost\\SQLEXPRESS',
+  database: 'AccountServer',
+  server: 'DESKTOP-6T9A8EA\\SQLEXPRESS',
 
   pool: {
     max:10,

@@ -3,7 +3,7 @@ import { Navbar, Nav, FlexboxGrid, Col, CustomProvider, toaster, Notification } 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faLock, faEye } from '@fortawesome/free-solid-svg-icons'
 import { useRouter } from 'next/router'
-import { showNotification } from './utilContext.js'
+import { showNotification, UserContext } from './utilContext.js'
 //import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import {userService} from '@services/index'
 
@@ -13,6 +13,7 @@ export default function MyNav(){
   const [type, setType] = useState('info');
   const [active, setActive] = useState('home')
   const [activec, setActivec] = useState('')
+  const {userDataMaster, setUserDataMaster} = useContext(UserContext)
 
   const NavCenter = ({ activec, onSelect, ...props }) => {
     return (
@@ -51,6 +52,8 @@ export default function MyNav(){
 
   function handleLogout(){
     setIsLogged(false)
+    const newdata = {userData:'', charsData:''}
+    setUserDataMaster(newdata)
     router.push('/')
     userService.logout()
     toaster.push(showNotification('You have logged out successfully', 'info', 'Disconnected'), 'bottomEnd')

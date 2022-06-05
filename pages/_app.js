@@ -31,30 +31,31 @@ function MyApp({ Component, pageProps }) {
       }
     }, [router])
 
-useEffect(() => {
-  if(userService.userValue){
-    userService.getDetails().then((x) => setUserDataMaster({userData:userService.userValue , charsData:x}))
-  }
-  if(localStorage.getItem('themeUser')){
-    setTheme(localStorage.getItem('themeUser'))
-  }else{
-    setTheme('ligth')
-    localStorage.setItem('themeUser', 'ligth')
-  }
-  authCheck(router.asPath);
-  const hideContent = () => setAuthorized(false);
-  router.events.on('routeChangeStart', hideContent);
-  router.events.on('routeChangeComplete', authCheck);
+  useEffect(() => {
+    if(userService.userValue){
+        userService.getDetails().then((x) => setUserDataMaster({userData:userService.userValue, charsData:x}) )
+    }
 
-  return () => {
-    router.events.off('routeChangeStart', hideContent);
-    router.events.off('routeChangeComplete', authCheck);
-  }
-}, [router, authCheck]);
+    if(localStorage.getItem('themeUser')){
+      setTheme(localStorage.getItem('themeUser'))
+    }else{
+      setTheme('ligth')
+      localStorage.setItem('themeUser', 'ligth')
+    }
+    authCheck(router.asPath);
+    const hideContent = () => setAuthorized(false);
+    router.events.on('routeChangeStart', hideContent);
+    router.events.on('routeChangeComplete', authCheck);
+
+    return () => {
+      router.events.off('routeChangeStart', hideContent);
+      router.events.off('routeChangeComplete', authCheck);
+    }
+  }, [router, authCheck]);
 
   return(
   <ThemeContext.Provider value={{theme, setTheme}}>
-  <UserContext.Provider value={{userDataMaster, userDataMaster}}>
+  <UserContext.Provider value={{userDataMaster, setUserDataMaster}}>
   {authorized &&
     <CustomProvider theme={theme}>
     <Container style={{height:'100vh'}}>

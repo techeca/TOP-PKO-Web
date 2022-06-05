@@ -36,20 +36,18 @@ export default function Dashboard(){
                 <FlexboxGrid.Item  as={Col} colspan={24} md={8}>
                   <Panel style={{marginTop:10}} bordered>
 
-                    {userDataMaster ?
                       <Panel style={{margin:-10}} eventKey={1} id="panel1">
                         <h4>Server Stats</h4>
                         <Divider style={{marginTop:10}} />
                         <div style={{display:'flex', flexDirection:'column', alignItems:'', marginTop:15, margin:10}}>
-                          {lineData('Server Status', userDataMaster.userData.name)}
+                          {lineData('Server Status', 'Online')}
                           {/*lineData('Level Account', userData.gmLevel)*/}
-                          {lineData('Total Accounts', userDataMaster.userData.email)}
-                          {lineData('Total Characters', userDataMaster.userData.lastLoginIp)}
-                          {lineData('Total Guilds', userDataMaster.userData.lastLoginTime ? userDataMaster.userData.lastLoginTime.slice(0, userDataMaster.userData.lastLoginTime.length-14, '') : '')}
+                          {lineData('Total Accounts', '100')}
+                          {lineData('Total Characters', '300')}
+                          {lineData('Total Guilds',  '20')}
                         </div>
                       </Panel>
-                       : <></>
-                     }
+
                   </Panel>
                 </FlexboxGrid.Item>
 

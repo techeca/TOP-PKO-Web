@@ -25,7 +25,7 @@ export default function MySideNav(){
   const {userDataMaster, setUserDataMaster} = useContext(UserContext)
 
   function handleContentCPanel (p){
-    //Si seleccionar un personaje obtiene id del pj
+    //Si seleccionar un personaje obtiene id del pj //cambiar
     let dataChar = []
     if(!isNaN(p)){
       //busca el personaje seleccionado
@@ -95,10 +95,12 @@ export default function MySideNav(){
 
        <Sidebar style={{display:'flex'}} width={expanded ? 260 : 56} collapsible>
          <Sidenav expanded={expanded}  appearance={'default'} defaultOpenKeys={['characters', 'settings']}>
+         <Affix>
            <Sidenav.Body style={{}} >
            <CustomNav active={active} onOpen={setActive} onSelect={setActive} />
            </Sidenav.Body>
            <Sidenav.Toggle appearance={'default'} style={{display:'flex', justifyContent:'flex-end', padding:10, bottom:'0'}} expanded={!expanded} onToggle={expanded => setExpanded(!expanded)} />
+          </Affix>
          </Sidenav>
        </Sidebar>
 

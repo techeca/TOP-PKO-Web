@@ -21,6 +21,9 @@ export default function Profile(){
     )
   }
 
+  //userDataMaster.charsData[0].reduce((a, b) => console.log(a + b, 0))
+  //console.log(userDataMaster)
+
   return(
     <>
     {userDataMaster.userData ?
@@ -44,7 +47,7 @@ export default function Profile(){
                       {/*lineData('Level Account', userData.gmLevel)*/}
                       {lineData('Email', userDataMaster.userData.email)}
                       {lineData('Crystals', userDataMaster.userData.crystals)}
-                      {lineData('Honor', userDataMaster.userData.honor)}
+                      {lineData('Total Reputation', userDataMaster.charsData.honor)}
                       <Divider />
                       {lineData('Last Login IP', userDataMaster.userData.lastLoginIp)}
                       {lineData('Last Login Time', userDataMaster.userData.lastLoginTime)}
@@ -62,7 +65,7 @@ export default function Profile(){
 
                     <PanelGroup accordion >
                       <Panel defaultExpanded>
-                        <ChangeHonorForCredits eventKey={1}  />
+                        <ChangeHonorForCredits charsData={userDataMaster.charsData ? userDataMaster.charsData : false} eventKey={1}  />
                       </Panel>
                     </PanelGroup>
 

@@ -11,14 +11,16 @@ SQL_USER=                #SQL User
 SQL_DATABASE=            #AccountServer database name
 SQL_DATABASE_GDB=        #GameDB database name
 API_KEY=                 #Your API KEY
+
 ```
 
 Open `config/db.js` and edit `password` with your own password (SQL).\
 
 ```bash
-user: process.env.SQL_USER,
-password: 'Y87dc#$98',  # <------ EDIT HERE
-database: process.env.SQL_DATABASE,
+user: '',             #SQL User
+password: '',         #Password SQL User
+database: '',         #Database name (AccountServer)
+server: '',           #ex: localhost\\SQLEXPRESS
 ```
 
 Open `next.config.js` and edit `secret` with your `API_KEY`.

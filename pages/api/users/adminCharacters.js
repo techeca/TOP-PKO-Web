@@ -2,8 +2,6 @@ import getConfig from 'next/config'
 import { sqlConfig } from '@config/db'
 import {apiHandler} from '@helpers/api'
 const sql = require('mssql')
-const jwt = require('jsonwebtoken')
-const md5Hash = require('md5-hash')
 const { serverRuntimeConfig } = getConfig()
 
 export default apiHandler(handler)
@@ -19,16 +17,17 @@ function handler(req, res){
   //obtiene detalles de personaje
   async function getCharDetails(){
     const userId = req.user.sub
+    console.log(req.user)
     const chracterDetails =  await sql.connect(sqlConfig).then(() => {
-      return sql.query`SELECT * FROM [GameDB].[dbo].[character] WHERE act_id = ${userId} AND [GameDB].[dbo].[character].delflag = 0`
+      return sql.query`SELECT * FROM [GameDB].[dbo].[character]`
     })
     //console.log(chracterDetails)
-    //if(chracterDetails.rowsAffected > 0){
-          return res.status(200).json(chracterDetails.rowsAffected > 0 ? chracterDetails.recordsets : false)
+    if(chracterDetails.rowsAffected > 0){
+          return res.status(200).json(chracterDetails.recordsets)
       //sql.close()
-    //}else {
-    //  throw 'No tiene personajes creados'
-    //}
+    }else {
+      throw 'No characters in DB'
+    }
   }
 
 }

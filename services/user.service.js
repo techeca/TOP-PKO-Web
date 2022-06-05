@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { fetchWrapper } from '../helpers';
 import getConfig from 'next/config';
 import { Notification } from 'rsuite'
+import { UserContext } from '../pages/utilContext.js'
 
 const { publicRuntimeConfig } = getConfig();
 const baseUrl = `${publicRuntimeConfig.apiUrl}/users`;
@@ -14,7 +15,12 @@ export const userService = {
   login,
   logout,
   getDetails,
-  register
+  register,
+  admAccount,
+  admCharacterst,
+  admMall,
+  itemsDet,
+  addItemToPackage
 };
 
 function login(username, password) {
@@ -37,4 +43,41 @@ function logout(){
 
 function register(name, email, password){
   return fetchWrapper.postSn(`${baseUrl}/register`, {name, email, password})
+}
+
+//ADMIN - mover
+
+function admAccount(){
+  //Debe ser admin para solicitar datos
+    if(userService.userValue.tokenAdmin){
+      return fetchWrapper.get(`${baseUrl}/adminAccounts`)
+    }else {
+      Router.push('/');
+    }
+}
+
+function admCharacterst(){
+  //Debe ser admin para solicitar datos
+    if(userService.userValue.tokenAdmin){
+      return fetchWrapper.get(`${baseUrl}/adminCharacters`)
+    }else {
+      Router.push('/');
+    }
+}
+
+function admMall(){
+  //Debe ser admin para solicitar datos
+    if(userService.userValue.tokenAdmin){
+      return fetchWrapper.get(`${baseUrl}/adminMall`)
+    }else {
+      Router.push('/');
+    }
+}
+
+function itemsDet(itemsRequest){
+  return fetchWrapper.post(`${baseUrl}/itemsDetails`, {itemsRequest})
+}
+
+function addItemToPackage(item, reqType){
+  return fetchWrapper.post(`${baseUrl}/itemsDetails`, {item, reqType})
 }
