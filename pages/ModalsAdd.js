@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
-import { Panel, Button, Modal, ButtonToolbar, Container, FlexboxGrid, Form, FormGroup, Schema, Animation, toaster, SelectPicker } from 'rsuite'
-const { StringType, NumberType } = Schema.Types;
+import { Panel, Button, Modal, ButtonToolbar, Container, FlexboxGrid, Form, FormGroup, Schema, Animation, toaster, SelectPicker, Toggle } from 'rsuite'
+const { StringType, NumberType, BooleanType } = Schema.Types;
 import { userService } from '@services/index'
 import { showNotification } from './utilContext.js'
 
@@ -164,7 +164,7 @@ export function ModalAddItemInCat({handleCloseModal, openModalItemInCat, packSel
   const handleSubmit = async (e) => {
     e.preventDefault()
       const tempNew = {...newItemInPackage, comID:packSelected.comID}
-      return userService.addItemToPackage(tempNew, 'add')
+      return userService.addItemToPackage(tempNew, 'addItem')
              .then((r) => {
                //console.log()
                setNewItemInPackage({itemID:0, quantity:1, flute:0, attribute1Id:0, attribute1Value:0, attribute2Id:0, attribute2Value:0, attribute3Id:0, attribute3Value:0, attribute4Id:0, attribute4Value:0, attribute5Id:0, attribute5Value:0, comID:packSelected.comID})
@@ -309,7 +309,7 @@ export function ModalAddItemInCat({handleCloseModal, openModalItemInCat, packSel
       </>
     )
 }
-export function ModalAddCategorie({handleCloseModal, openModalCat, packSelected, updateMallData, categoriesName}){
+export function ModalAddCategorie({handleCloseModal, openModalCat, updateMallData, categoriesName}){
   const [newCategorie, setNewCategorie] = useState()
   //console.log(packSelected)
   const model = Schema.Model({
@@ -324,7 +324,7 @@ export function ModalAddCategorie({handleCloseModal, openModalCat, packSelected,
              .then((r) => {
                //console.log()
                setNewCategorie({clsName:''.clsName, parentID:0})
-               toaster.push(showNotification(`Done`, 'success', 'New Item added'), 'bottomEnd')
+               toaster.push(showNotification(`Done`, 'success', 'New Categorie added'), 'bottomEnd')
                updateMallData()
                handleCloseModal()
              })
@@ -357,7 +357,7 @@ export function ModalAddCategorie({handleCloseModal, openModalCat, packSelected,
               <FlexboxGrid.Item colspan={22}>
               {/* New item in package */}
               <h4 style={{marginBottom:10}}>Add Categorie</h4>
-              <h5 style={{color:'purple'}}><strong>{packSelected.clsName}</strong></h5>
+              {/*<h5 style={{color:'purple'}}><strong>{packSelected.clsName}</strong></h5>*/}
                 <Panel>
 
                     <Form fluid onChange={setNewCategorie} formValue={newCategorie} model={model}>
@@ -388,6 +388,111 @@ export function ModalAddCategorie({handleCloseModal, openModalCat, packSelected,
                         </div>
                       </div>
 
+                    </Form>
+                </Panel>
+              </FlexboxGrid.Item>
+            </FlexboxGrid>
+            </Animation.Bounce>
+            </Container>
+
+            </Modal.Body>
+            <Modal.Footer>
+
+            </Modal.Footer>
+          </Modal>
+          </div>
+      </Panel>
+      :
+      <></>}
+      </>
+    )
+}
+export function ModalAddPack({handleCloseModal, openModalPack, updateMallData, categorieSelected, categoriesName}){
+  //const [newCategorie, setNewCategorie] = useState()
+  const [packageForm, setPackageForm] = useState()
+  //console.log(categorieSelected)
+  const model = Schema.Model({
+    comName: StringType().isRequired('Name is required'),
+    comRemack: StringType().isRequired('Description is required'),
+    comPrice: NumberType().isRequired('Price is required'),
+    isHot: BooleanType()
+  })
+
+    const handleSubmit = async (e) => {
+    e.preventDefault()
+      const tempNew = {comName:packageForm.comName, comClass:categorieSelected.clsID, comPrice:packageForm.comPrice, comRemack:packageForm.comRemack, isHot:packageForm.isHot == 1 ? true : 0, comTime:1408594454, beginTime:1408594454, comExpire:-1, comNumber:-1, isDel:0, delTime:0}
+      return userService.addItemToPackage(tempNew, 'addPackToCat')
+             .then((r) => {
+               //console.log()
+               //setNewCategorie({clsName:''.clsName, parentID:0})
+               toaster.push(showNotification(`Done`, 'success', 'New Pack added'), 'bottomEnd')
+               updateMallData()
+               handleCloseModal()
+             })
+             .catch(error => {
+               //toaster.push(showNotification(`${error}`, 'error', 'User exists'), 'bottomEnd')
+               console.log(error)
+             })
+      }
+
+    const handleClose = () => {
+      handleCloseModal()
+      updateMallData()
+      setPackageForm('')
+    }
+
+  return (
+      <>
+      {openModalPack ? <Panel >
+      <div className="modal-container">
+          <Modal open={openModalPack} onClose={handleClose}>
+            <Modal.Header>
+            </Modal.Header>
+
+            <Modal.Body>
+            <Container style={{margin:0}}>
+            <Animation.Bounce in={true}>
+            <FlexboxGrid justify={'space-around'}>
+              <FlexboxGrid.Item colspan={22}>
+              {/* New item in package */}
+              <h4 style={{marginBottom:10}}>Add Pack to <span style={{color:'red'}}>{categorieSelected.clsName}</span></h4>
+                <Panel>
+
+                <Form fluid onChange={setPackageForm} formValue={packageForm} model={model}>
+
+                      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}>
+                      <p style={{margin:10}}>Name</p>
+                      <Form.Group style={{width:'50%'}} controlId='comName'>
+                        {/*<Form.ControlLabel>ID</Form.ControlLabel>*/}
+                        <Form.Control name="comName" />
+                      </Form.Group></div>
+                      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}>
+                      <p style={{margin:10}}>Description</p>
+                      <Form.Group style={{width:'50%', display:'flex'}} controlId='comRemack'>
+                        {/*<Form.ControlLabel>ID</Form.ControlLabel>*/}
+                        {/*<Form.Control defaultValue={packSelected.comRemack} rows={3} accepter={Textarea} name="comRemack" />*/}
+                        <Form.Control name="comRemack" />
+                      </Form.Group></div>
+
+                      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}>
+                      <p style={{margin:10}}>Price</p>
+                      <Form.Group style={{width:'50%'}} controlId='comPrice'>
+                        {/*<Form.ControlLabel>ID</Form.ControlLabel>*/}
+                        <Form.Control name="comPrice" />
+                      </Form.Group></div>
+
+                      <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}>
+                      <p style={{margin:10}}>Is HOT</p>
+                      <Form.Group style={{width:'50%'}} controlId='isHot'>
+                        {/*<Form.ControlLabel>ID</Form.ControlLabel>*/}
+                        <Form.Control accepter={Toggle} name="isHot" />
+                      </Form.Group></div>
+                      {/*<div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}><p style={{margin:10}}>Crystals</p><Input value={tradedet[0] ? tradedet[0].Money : '0' } style={{width:'50%'}} /></div>*/}
+                      <div style={{display:'flex', justifyContent:'flex-end', margin:15}}>
+                        <Button onClick={handleSubmit} type='submit' color='green' appearance="primary">Save</Button>
+                      </div>
+
+                    {/*<h6 style={{textAlign:'center', marginTop:30}}>Attributes</h6>*/}
                     </Form>
                 </Panel>
               </FlexboxGrid.Item>

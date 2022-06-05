@@ -29,7 +29,7 @@ export default function DrawPackDet({openDraw, packSelected, handleCloseDrawPack
 
   const handleDeleteItem = async (e) => {
       //const tempNew = {...newItemInPackage, packageID:packSelected.clsID}
-      return userService.addItemToPackage({itemID:e.itemID, packageID:packSelected.comID}, 'delete')
+      return userService.addItemToPackage({itemID:e.itemID, packageID:packSelected.comID}, 'deleteItem')
              .then((r) => {
                //console.log()
                //setNewItemInPackage({itemID:e.itemID, packageID:packSelected.comID})
@@ -43,11 +43,11 @@ export default function DrawPackDet({openDraw, packSelected, handleCloseDrawPack
                console.log(error)
              })
       }
-  const handleSubmit = async (e) => {
+  const handleSubmitUp = async (e) => {
         e.preventDefault()
 
           const tempNew = {comID:packSelected.comID , comName:packageForm.comName ? packageForm.comName : packSelected.comName, comRemack:packageForm.comRemack ? packageForm.comRemack : packSelected.comRemack, comPrice:packageForm.comPrice ? packageForm.comPrice : packSelected.comPrice, comClass:packSelected.comClass, isHot:packageForm.isHot ? packageForm.isHot : packSelected.isHot}
-          console.log(tempNew)
+          //console.log('update')
           return userService.addItemToPackage(tempNew, 'updatePackage')
                  .then((r) => {
                    //console.log()
@@ -77,7 +77,7 @@ export default function DrawPackDet({openDraw, packSelected, handleCloseDrawPack
           <Drawer.Title>{packSelected.comName}</Drawer.Title>
           <Drawer.Actions>
             {/*<IconButton onClick={() => handleModal('itemInPack')} appearance='primary' color='green' icon={<PlusIcon />} />*/}
-            <Button onClick={() => handleModal('itemInPack')} appearance='primary' color='green'>New Item</Button>
+            <Button onClick={() => handleModal('itemInPack', packSelected)} appearance='primary' color='green'>New Item</Button>
             {/*<IconButton color='red' appearance='primary' icon={<TrashIcon />} />*/}
 
           </Drawer.Actions>
@@ -123,14 +123,14 @@ export default function DrawPackDet({openDraw, packSelected, handleCloseDrawPack
               </Form.Group></div>
               {/*<div style={{display:'flex', flexDirection:'row', justifyContent:'space-between', margin:10}}><p style={{margin:10}}>Crystals</p><Input value={tradedet[0] ? tradedet[0].Money : '0' } style={{width:'50%'}} /></div>*/}
               <div style={{display:'flex', justifyContent:'flex-end', margin:15}}>
-                <Button onClick={handleSubmit} type='submit' color='green' appearance="primary">Save</Button>
+                <Button onClick={handleSubmitUp} type='submit' color='green' appearance="primary">Save</Button>
               </div>
 
             {/*<h6 style={{textAlign:'center', marginTop:30}}>Attributes</h6>*/}
             </Form>
 
             </Panel>
-            <Panel style={{marginTop:20, margin:-20}} header={<h5 style={{ marginTop:15}}>Package Details</h5>}>
+            <Panel style={{marginTop:20, margin:-20}} header={<h5 style={{ marginTop:15}}>Items</h5>}>
 
               <Panel bordered style={{justifyContent:'center', marginTop:10}}>
                 {/*<Image layout="responsive" src={AboutImg} />*/}
@@ -164,14 +164,14 @@ export default function DrawPackDet({openDraw, packSelected, handleCloseDrawPack
                   </Panel>
               </Panel>
 
-              <Panel style={{marginTop:20}} header='Delete Package' bordered>
+              {/*<Panel style={{marginTop:20}} header='Delete Package' bordered>
               <i>Write Delete</i>
               <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
 
                 <Input placeholder={''}  style={{width:'50%'}} />
                 <Button appearance='primary' color='red'>DELETE</Button>
               </div>
-              </Panel>
+              </Panel>*/}
 
             </Panel>
 
