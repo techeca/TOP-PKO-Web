@@ -54,6 +54,9 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ![web2](https://user-images.githubusercontent.com/53408118/171515524-031cfe2c-ec25-4f0c-a63b-1aad85188a2f.PNG)
 ![web3](https://user-images.githubusercontent.com/53408118/171515573-9400e0ba-7735-48b5-851d-cd2600cec52a.PNG)
 ![web5](https://user-images.githubusercontent.com/53408118/171515584-591ffd90-9ad4-4366-9986-bbb452e0e4d7.PNG)
+![web15](https://user-images.githubusercontent.com/53408118/172039413-1442a63b-77fe-4f86-8832-ed2313cb62a2.PNG)
+![web12](https://user-images.githubusercontent.com/53408118/172039415-1a2a8619-53e6-42e2-95b7-7cad154d3428.PNG)
+
 
 
 ### Links
